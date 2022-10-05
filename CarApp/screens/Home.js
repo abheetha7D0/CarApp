@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet, TouchableOpacity,PixelRatio, FlatList,  Image, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, PixelRatio, FlatList, Image, TextInput } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeBaseProvider, Button, Flex } from "native-base";
+import {storeCar} from './StoreCar';
 
 export default function Home({ navigation }) {
     const [posts, setPosts] = useState([]);
@@ -40,13 +41,13 @@ export default function Home({ navigation }) {
                         placeholder='Search'
                     />
                 </View>
-                
+
                 <View style={{ flex: 8, }}>
                     <View style={{ padding: 20 }}>
-                        
+
                         <FlatList
                             data={dataList}
-                            
+
                             renderItem={({ item }) =>
                                 <TouchableOpacity style={{
                                     backgroundColor: '#fff',
@@ -57,8 +58,11 @@ export default function Home({ navigation }) {
                                     padding: 5,
                                     display: 'flex',
                                     flexDirection: 'column',
-                                  }}
-                                   onPress={() => { console.log("hello"); }}>
+                                }} onPress={e => {
+                                    storeCar.regNumber = item.regNumber;
+                                    navigation.navigate('ManageCar');
+                                }}
+                                >
                                     <Flex
                                         flexDirection={'row'}
                                         style={{
@@ -95,9 +99,9 @@ export default function Home({ navigation }) {
                                                         width: '100%',
                                                         height: '35%',
                                                     }}>
-                                                       
+
                                                     <Text
-                                                    
+
                                                         color={'white'}
                                                         fontSize={'sm'}
                                                         style={{ marginBottom: 5, marginLeft: '10%' }}>
@@ -137,9 +141,9 @@ export default function Home({ navigation }) {
                         />
                     </View>
                 </View>
-               
+
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Button marginTop={2} size="md" width={'30%'} variant="subtle" colorScheme="blue" onPress={() => { navigation.navigate("ManageCar") }}>
+                    <Button marginTop={2} size="md" width={'30%'} variant="subtle" colorScheme="blue" onPress={() => { navigation.navigate("AddCar") }}>
                         Add New Vehicle
                     </Button>
                 </View>

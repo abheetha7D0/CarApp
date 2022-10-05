@@ -4,11 +4,12 @@ import Login from './screens/Login'
 import Home from './screens/Home'
 import ManageCar from './screens/ManageCar'
 import Register from './screens/Register'
-import TestPicker from './screens/TestPicker'
+import AddCar from './screens/AddCar'
+
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import test from './screens/TestPicker'
+
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ export default function App() {
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="ManageCar" component={ManageCar} />
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="AddCar" component={AddCar} />
     </Stack.Navigator>
   </NavigationContainer>
 

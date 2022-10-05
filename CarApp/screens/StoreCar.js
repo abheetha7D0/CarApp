@@ -1,3 +1,3 @@
 export var storeCar = {
-  regNo: ''
+  regNumber: ''
 }

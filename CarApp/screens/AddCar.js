@@ -4,7 +4,7 @@ import { TextArea, NativeBaseProvider, Button, TextField } from "native-base";
 import { launchImageLibrary } from 'react-native-image-picker';
 import { storeCar } from './StoreCar';
 
-export default function ManageCar() {
+export default function AddCar() {
 
 
     const [carObj, setCarObj] = useState({
@@ -177,57 +177,31 @@ export default function ManageCar() {
                             variant="outline"
                             width={'70%'}
                             onPress={async e => {
+                                carObj.regNumber != ''
                                 
-                                carObj.regNumber != ''
-                               
-                                  ? fetch(
-                                      'http://192.168.1.3:4000/car?regNumber=' + carObj.regNumber,
-                                      {
-                                        method: 'PUT',
-                                        body: JSON.stringify(carObj),
-                                        headers: {
-                                          'Content-Type': 'application/json;charset=UTF-8',
+                                    ? fetch(
+                                        'http://192.168.1.3:4000/cars',
+                                        {
+                                            method: 'POST',
+                                            body: JSON.stringify(carObj),
+                                            headers: {
+                                                'Content-Type': 'application/json;charset=UTF-8',
+                                            },
                                         },
-                                      },
                                     )
-                                      .then(res => {
-                                        console.log(res);
-                                        Alert.alert('Car Updated Successfully');
-                                      })
-                                      .catch(res => {
-                                        console.log(res);
-                                        Alert.alert('Car Updating is Unsuccessful');
-                                      })
-                                  : Alert.alert('Please Fill Relevant Fields');
-                              }}>
-                            Update
+                                        .then(res => {
+                                            console.log(res);
+                                            Alert.alert('Car Save Successfully');
+                                        })
+                                        .catch(res => {
+                                            console.log(res);
+                                            Alert.alert('Car Save is Unsuccessful');
+                                        })
+                                    : Alert.alert('Please Fill Relevant Fields');
+                            }}>
+                            Save
                         </Button>
-                        <Button
-                            size="md"
-                            variant="outline"
-                            width={'70%'}
-                            onPress={async e => {
-                                carObj.regNumber != ''
-                                  ? fetch(
-                                      'http://192.168.1.3:4000/car' + carObj.regNumber,
-                                      {
-                                        method: 'DELETE',
-                                      },
-                                    )
-                                      .then(res => {
-                                        console.log(res);
-                                        Alert.alert('Car Deleted Successfully');
-                                      })
-                                      .catch(res => {
-                                        console.log(res);
-              
-                                        Alert.alert('Car Deleting is Unsuccessful');
-                                      })
-                                  : Alert.alert('Please Fill Relevant Fields');
-                              }}
-                        >
-                        Delete
-                        </Button>
+                        
                     </View>
 
                 </View>
