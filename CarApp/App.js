@@ -5,6 +5,7 @@ import Home from './screens/Home'
 import ManageCar from './screens/ManageCar'
 import Register from './screens/Register'
 import AddCar from './screens/AddCar'
+import Spalsh from './screens/Spalsh'
 
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -17,7 +18,8 @@ export default function App() {
   return (
    <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen  options={{headerShown: false}} name="Spalsh" component={Spalsh} />
+      <Stack.Screen  options={{headerShown: false}} name="Login" component={Login} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="ManageCar" component={ManageCar} />
       <Stack.Screen name="Home" component={Home} />

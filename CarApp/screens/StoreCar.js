@@ -1,3 +1,8 @@
 export var storeCar = {
-  regNumber: ''
+  regNumber: '',
+  brand:'',
+  date:'',
+  location:'',
+  image:'',
+  price:'',
 }

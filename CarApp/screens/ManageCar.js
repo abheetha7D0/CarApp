@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet, Image, TextInput, ScrollView, Alert } from 'react-native'
+import { View, Text, StyleSheet, Image, TextInput, ScrollView, Alert, PixelRatio } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { TextArea, NativeBaseProvider, Button, TextField } from "native-base";
+import { TextArea, NativeBaseProvider, Button, Flex, Input } from "native-base";
 import { launchImageLibrary } from 'react-native-image-picker';
 import { storeCar } from './StoreCar';
 
@@ -57,47 +57,63 @@ export default function ManageCar() {
 
     return (
         <NativeBaseProvider>
-            <ScrollView>
-                <View style={styles.container}>
+            <ScrollView style={styles.container}>
+                <View>
 
-                    <View style={styles.section1}>
+                    <View style={styles.section3}>
 
-                        <View style={styles.section1_1}>
-                            <View style={styles.section1_2}>
-                                <Text style={styles.text1}>Upload Image</Text>
-                            </View>
-                            <View style={styles.section1_2}>
-                                <Button size="sm" onPress={async e => {
-                                    const image = await launchImageLibrary({ mediaType: 'photo', selectionLimit: 1 })
-                                    let images = image.assets
-                                    images.forEach(e => {
-                                        let uri = e.uri
-                                        console.log(uri)
-                                        setCarObj(prevState => {
-                                            return {
-                                                ...carObj,
-                                                image: uri,
-                                            };
-                                        });
-                                    })
-
-                                }}>Upload</Button>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.section2}>
-                        <Image source={imageUri} />
-                        <TextInput
-                            value={carObj.image}
-                            style={styles.input1}
-                            editable={false} width={'80%'}
-                            placeholder='Image'
-                        />
-
+                        <Flex
+                            style={{
+                                marginTop: 2,
+                                position: 'relative',
+                                width: '50%',
+                                height: '100%',
+                                borderWidth: 1,
+                                borderColor: 'yellow'
+                            }}>
+                            <Image
+                                resizeMode="stretch"
+                                source={{ uri: carObj.image }}
+                                style={{ width: '100%', height: PixelRatio.getPixelSizeForLayoutSize(70), }}
+                            >
+                            </Image>
+                        </Flex>
                     </View>
                     <View style={styles.section3}>
-                        <TextInput
-                            style={styles.input1}
+                        <Button size="sm"
+                            marginTop={4}
+                            variant="subtle"
+                            bgColor={'yellow.100'}
+                            width={'30%'}
+                            color={'white'}
+                            _text={{
+                                color: "#080808",
+                                fontSize: "md",
+                            }}
+                            onPress={async e => {
+                                const image = await launchImageLibrary({ mediaType: 'photo', selectionLimit: 1 })
+                                let images = image.assets
+                                images.forEach(e => {
+                                    let uri = e.uri
+                                    console.log(uri)
+                                    setCarObj(prevState => {
+                                        return {
+                                            ...carObj,
+                                            image: uri,
+                                        };
+                                    });
+                                })
+
+                            }}>Upload</Button>
+                    </View>
+
+                    <View style={styles.section3}>
+                        <Input
+                            focusOutlineColor={'#ffca05'}
+                            fontSize={15} color={'black'}
+                            bgColor={'yellow.100'}
+                            w="80%"
+                            isDisabled={'true'}
                             onChangeText={e => {
                                 setCarObj(prevState => {
                                     return {
@@ -111,8 +127,11 @@ export default function ManageCar() {
                         />
                     </View>
                     <View style={styles.section3}>
-                        <TextInput
-                            style={styles.input1}
+                        <Input
+                            w="80%"
+                            focusOutlineColor={'#ffca05'}
+                            fontSize={15} color={'black'}
+                            bgColor={'yellow.100'}
                             onChangeText={e => {
                                 setCarObj(prevState => {
                                     return {
@@ -126,8 +145,11 @@ export default function ManageCar() {
                         />
                     </View>
                     <View style={styles.section3}>
-                        <TextInput
-                            style={styles.input1}
+                        <Input
+                            w="80%"
+                            focusOutlineColor={'#ffca05'}
+                            fontSize={15} color={'black'}
+                            bgColor={'yellow.100'}
                             onChangeText={e => {
                                 setCarObj(prevState => {
                                     return {
@@ -141,9 +163,11 @@ export default function ManageCar() {
                         />
                     </View>
                     <View style={styles.section3}>
-                        <TextInput
-                            style={styles.input1}
-
+                        <Input
+                            focusOutlineColor={'#ffca05'}
+                            fontSize={15} color={'black'}
+                            bgColor={'yellow.100'}
+                            w="80%"
                             onChangeText={e => {
                                 setCarObj(prevState => {
                                     return {
@@ -157,8 +181,11 @@ export default function ManageCar() {
                         />
                     </View>
                     <View style={styles.section3}>
-                        <TextInput
-                            style={styles.input1}
+                        <Input
+                            focusOutlineColor={'#ffca05'}
+                            fontSize={15} color={'black'}
+                            bgColor={'yellow.100'}
+                            w="80%"
                             onChangeText={e => {
                                 setCarObj(prevState => {
                                     return {
@@ -174,59 +201,72 @@ export default function ManageCar() {
                     <View style={styles.section4}>
                         <Button
                             size="md"
-                            variant="outline"
-                            width={'70%'}
+                            variant="subtle"
+                            bgColor={'#f0932b'}
+                            width={'30%'}
+                            color={'white'}
+                            _text={{
+                                color: "#080808",
+                                fontSize: "md",
+                            }}
                             onPress={async e => {
-                                
+
                                 carObj.regNumber != ''
-                               
-                                  ? fetch(
-                                      'http://192.168.1.3:4000/car?regNumber=' + carObj.regNumber,
-                                      {
-                                        method: 'PUT',
-                                        body: JSON.stringify(carObj),
-                                        headers: {
-                                          'Content-Type': 'application/json;charset=UTF-8',
+
+                                    ? fetch(
+                                        'http://192.168.1.4:4000/cars?regNumber=' + carObj.regNumber,
+                                        {
+                                            method: 'PUT',
+                                            body: JSON.stringify(carObj),
+                                            headers: {
+                                                'Content-Type': 'application/json;charset=UTF-8',
+                                            },
                                         },
-                                      },
                                     )
-                                      .then(res => {
-                                        console.log(res);
-                                        Alert.alert('Car Updated Successfully');
-                                      })
-                                      .catch(res => {
-                                        console.log(res);
-                                        Alert.alert('Car Updating is Unsuccessful');
-                                      })
-                                  : Alert.alert('Please Fill Relevant Fields');
-                              }}>
+                                        .then(res => {
+                                            console.log(res);
+                                            Alert.alert('Car Updated Successfully');
+                                        })
+                                        .catch(res => {
+                                            console.log(res);
+                                            Alert.alert('Car Updating is Unsuccessful');
+                                        })
+                                    : Alert.alert('Please Fill Relevant Fields');
+                            }}>
                             Update
                         </Button>
                         <Button
+                            marginTop={1}
                             size="md"
-                            variant="outline"
-                            width={'70%'}
+                            variant="subtle"
+                            bgColor={'#eb4d4b'}
+                            width={'30%'}
+                            color={'white'}
+                            _text={{
+                                color: "#080808",
+                                fontSize: "md",
+                            }}
                             onPress={async e => {
                                 carObj.regNumber != ''
-                                  ? fetch(
-                                      'http://192.168.1.3:4000/car' + carObj.regNumber,
-                                      {
-                                        method: 'DELETE',
-                                      },
+                                    ? fetch(
+                                        'http://192.168.1.4:4000/cars?regNumber=' + carObj.regNumber,
+                                        {
+                                            method: 'DELETE',
+                                        },
                                     )
-                                      .then(res => {
-                                        console.log(res);
-                                        Alert.alert('Car Deleted Successfully');
-                                      })
-                                      .catch(res => {
-                                        console.log(res);
-              
-                                        Alert.alert('Car Deleting is Unsuccessful');
-                                      })
-                                  : Alert.alert('Please Fill Relevant Fields');
-                              }}
+                                        .then(res => {
+                                            console.log(res);
+                                            Alert.alert('Car Deleted Successfully');
+                                        })
+                                        .catch(res => {
+                                            console.log(res);
+
+                                            Alert.alert('Car Deleting is Unsuccessful');
+                                        })
+                                    : Alert.alert('Please Fill Relevant Fields');
+                            }}
                         >
-                        Delete
+                            Delete
                         </Button>
                     </View>
 
@@ -238,6 +278,8 @@ export default function ManageCar() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#080808'
+
     },
     text1: {
         fontSize: 20

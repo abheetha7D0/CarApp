@@ -28,6 +28,7 @@ router.get("/login", async (req, resp) => {
          response = true;
        }
      });
+     
      resp.json(response);
    } catch (err) {
      resp.json({ message: err });
@@ -35,7 +36,8 @@ router.get("/login", async (req, resp) => {
  });
 
 
-router.post('/', async (req, res) => {
+router.post('/register', async (req, res) => {
+   console.log("awaaaaaaaaaaaa")
    const user = new User({
       name: req.body.name,
       password: req.body.password,

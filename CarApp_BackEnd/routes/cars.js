@@ -45,7 +45,7 @@ router.post("/",async(req,resp)=>{
 })
 
 
-router.put("/regNo='", async (req, resp) => {
+router.put("/", async (req, resp) => {
     console.log("updatee")
     try {
       let res = await Cars.find();
